@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+  <title>Discord Timestamps Generator</title>
+</head>
+
+<body>
+  Warning: Not all timestamps are done yet<br>
+  <input type="datetime-local" id="date">
+  <button onclick="go()">Go</button>
+  <h1 id="shorttime"></h1>
+  <h1 id="longtime"></h1>
+  <h1 id="shortdate"></h1>
+  <h1 id="longdate"></h1>
+  <h1 id="shortdatetime"></h1>
+  <h1 id="longdatetime"></h1>
+  <h1 id="relativetime"></h1>
+  <table>
+    <tr>
+      <th></th>
+    </tr>
+  </table>
+  <script src="https://unpkg.com/@yaireo/relative-time@1.0.2"></script>
+  <script>
+    var sel = a => document.getElementById(a);
+    function go() {
+      if (!sel("date").value) return;
+      var date = new Date(sel("date").value);
+      var unix = Math.floor(date.getTime() / 1000);
+      sel("shorttime").innerText = `<t:${unix}:t> - Short Time - ${date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric'})}`
+    sel("longtime").innerText = `<t:${unix}:T> - Long Time - ${date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric'})}`
+    sel("shortdate").innerText = `<t:${unix}:d> - Short Date - ${date.toLocaleString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })}`
+      sel("longdate").innerText = `<t:${unix}:D> - Long Date - `
+      sel("shortdatetime").innerText = `<t:${unix}:f> - Short Date/Time - `
+      sel("longdatetime").innerText = `<t:${unix}:F> - Long Date/Time - ${date.toLocaleString()}`
+      sel("relativetime").innerText = `<t:${unix}:R> - Relative Time - ${new RelativeTime().from(date)}`
+      }
+  </script>
+</body>
+
+</html>
